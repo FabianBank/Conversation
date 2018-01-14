@@ -4,4 +4,3 @@ When I press “Frank”
 Then I have opened the conversation with “Frank”
 
 
-  
