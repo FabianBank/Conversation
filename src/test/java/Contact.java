@@ -25,18 +25,18 @@ public class Contact {
         Message message;
         Conversation conversation = new Conversation("test", "test", "test",
                 "test", new Jid("jid", true), 1, 1, 1, "test");
-        message = new Message(conversation, "Hello world!", 1); assertEquals(message.getBody(), "Hello world!" );
+        message = new Message(conversation, "Hello world!", 1);
+        assertEquals(message.getBody(), "Hello world!" );
     }
 
 
     @Test
-    public void addContact() {
+    public void addContact(){
 
         Contact contact = new Contact();
-
         assertEquals(contact.getClass().getName(), "Contact");
-
     }
+
 
     @Test
     public void startGroupConversation() throws InvalidJidException {
@@ -53,7 +53,8 @@ public class Contact {
                 "test", new Jid("jid", true), 1, 1, 1, "test");
 
         Contact contact = new Contact();
-
+        contact.addContact();
+        assertEquals(conversation.getContact(), "Contact");
     }
 
 
