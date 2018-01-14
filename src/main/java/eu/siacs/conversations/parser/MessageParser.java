@@ -516,6 +516,7 @@ public class MessageParser extends AbstractParser implements OnMessagePacketRece
 			} else {
 				updateLastseen(account, from);
 			}
+			checkReplacementId(replacementId, conversation, counterpart, message, account);
 
 			long deletionDate = mXmppConnectionService.getAutomaticMessageDeletionDate();
 			if (deletionDate != 0 && message.getTimeSent() < deletionDate) {
@@ -681,6 +682,46 @@ public class MessageParser extends AbstractParser implements OnMessagePacketRece
 		if (nick != null) {
 			Contact contact = account.getRoster().getContact(from);
 			contact.setPresenceName(nick);
+		}
+	}
+
+	private void checkReplacementId(String replacementId, Conversation conversation, Jid counterpart, Message message, Account account) {
+		if (replacementId != null && mXmppConnectionService.allowMessageCorrection()) {
+			Message replacedMessage = conversation.findMessageWithRemoteIdAndCounterpart(replacementId,
+					counterpart,
+					message.getStatus() == Message.STATUS_RECEIVED,
+					message.isCarbon());
+			if (replacedMessage != null) {
+				final boolean fingerprintsMatch = replacedMessage.getFingerprint() == null
+						|| replacedMessage.getFingerprint().equals(message.getFingerprint());
+				final boolean trueCountersMatch = replacedMessage.getTrueCounterpart() != null
+						&& replacedMessage.getTrueCounterpart().equals(message.getTrueCounterpart());
+				final boolean duplicate = conversation.hasDuplicateMessage(message);
+				if (fingerprintsMatch && (trueCountersMatch && !duplicate)) {
+					Log.d(Config.LOGTAG, "replaced message '" + replacedMessage.getBody() + "' with '" + message.getBody() + "'");
+					synchronized (replacedMessage) {
+						final String uuid = replacedMessage.getUuid();
+						replacedMessage.setUuid(UUID.randomUUID().toString());
+						replacedMessage.setBody(message.getBody());
+						replacedMessage.setEdited(replacedMessage.getRemoteMsgId());
+
+						replacedMessage.setEncryption(message.getEncryption());
+						if (replacedMessage.getStatus() == Message.STATUS_RECEIVED) {
+							replacedMessage.markUnread();
+						}
+						mXmppConnectionService.updateMessage(replacedMessage, uuid);
+						mXmppConnectionService.getNotificationService().updateNotification(false);
+
+						if (replacedMessage.getEncryption() == Message.ENCRYPTION_PGP) {
+							conversation.getAccount().getPgpDecryptionService().discard(replacedMessage);
+							conversation.getAccount().getPgpDecryptionService().decrypt(replacedMessage, false);
+						}
+					}
+					return;
+				} else {
+					Log.d(Config.LOGTAG,account.getJid().toBareJid()+": received message correction but verification didn't check out");
+				}
+			}
 		}
 	}
 
