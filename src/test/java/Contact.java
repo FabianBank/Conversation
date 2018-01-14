@@ -18,24 +18,21 @@ public class Contact {
     private static String firstName = "Fabian";
     private static String lastName = "Bank";
 
+
+
     @Test
     public void messageBodyTest() throws InvalidJidException {
         Message message;
-
         Conversation conversation = new Conversation("test", "test", "test",
                 "test", new Jid("jid", true), 1, 1, 1, "test");
-
-        message = new Message(conversation, "Dit is de body van het bericht", 1);
-        assertEquals(message.getBody(), "Dit is de body van het bericht");
+        message = new Message(conversation, "Hello world!", 1); assertEquals(message.getBody(), "Hello world!" );
     }
 
 
     @Test
-    public void addContact(Contact contact) {
+    public void addContact() {
 
-        if(contact == null){
-            contact = new Contact();
-        }
+        Contact contact = new Contact();
 
         assertEquals(contact.getClass().getName(), "Contact");
 
@@ -56,7 +53,7 @@ public class Contact {
                 "test", new Jid("jid", true), 1, 1, 1, "test");
 
         Contact contact = new Contact();
-        
+
     }
 
 
