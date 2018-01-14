@@ -43,9 +43,9 @@ public class Contact {
         Conversation conversation = new Conversation("test", "test", "test",
                 "test", new Jid("jid", true), 1, 1, 1, "test");
 
-        assertEquals(conversation.getName(), "conversation");
-
+        assertEquals(conversation.getName(), "test");
     }
+
 
     @Test
     public void addContactToConversation() throws InvalidJidException {
