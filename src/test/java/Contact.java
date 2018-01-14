@@ -22,31 +22,42 @@ public class Contact {
     public void messageBodyTest() throws InvalidJidException {
         Message message;
 
-//        Conversation conversation = new Conversation("test", "test", "test",
-//                "test", new Jid("jid", true), 1, 1, 1, "test");
+        Conversation conversation = new Conversation("test", "test", "test",
+                "test", new Jid("jid", true), 1, 1, 1, "test");
 
-//        message = new Message(conversation, "Dit is de body van het bericht", 1);
-//        assertEquals(message.getBody(), "Dit is de body van het bericht");
+        message = new Message(conversation, "Dit is de body van het bericht", 1);
+        assertEquals(message.getBody(), "Dit is de body van het bericht");
     }
 
 
     @Test
-    public void addContact() {
+    public void addContact(Contact contact) {
 
-        Contact contact = new Contact();
+        if(contact == null){
+            contact = new Contact();
+        }
 
-        assertEquals(contact.getClass().getName(), "fabian");
-
+        assertEquals(contact.getClass().getName(), "Contact");
 
     }
 
     @Test
     public void startGroupConversation() throws InvalidJidException {
-//        Conversation conversation = new Conversation("test", "test", "test",
-//                "test", new Jid("jid", true), 1, 1, 1, "test");
+        Conversation conversation = new Conversation("test", "test", "test",
+                "test", new Jid("jid", true), 1, 1, 1, "test");
 
-//        assertEquals(conversation.getName(), “test”);
+        assertEquals(conversation.getName(), "conversation");
 
     }
+
+    @Test
+    public void addContactToConversation() throws InvalidJidException {
+        Conversation conversation = new Conversation("test", "test", "test",
+                "test", new Jid("jid", true), 1, 1, 1, "test");
+
+        Contact contact = new Contact();
+        
+    }
+
 
 }

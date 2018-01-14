@@ -82,7 +82,7 @@ public final class Jid {
 		return new Jid(out, false);
 	}
 
-	private Jid(final String jid, final boolean safe) throws InvalidJidException {
+	public Jid(final String jid, final boolean safe) throws InvalidJidException {
 		if (jid == null) throw new InvalidJidException(InvalidJidException.IS_NULL);
 
 		Jid fromCache = Jid.cache.get(jid);

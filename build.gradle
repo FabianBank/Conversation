@@ -120,6 +120,11 @@ android {
         }
     }
 
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
     packagingOptions {
         exclude 'META-INF/BCKEY.DSA'
         exclude 'META-INF/BCKEY.SF'
