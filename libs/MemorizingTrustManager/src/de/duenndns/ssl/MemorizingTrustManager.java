@@ -671,7 +671,7 @@ public class MemorizingTrustManager {
 				Object name = altName.get(1);
 				if (name instanceof String) {
 					si.append("[");
-					si.append((Integer)altName.get(0));
+					si.append(altName.get(0));
 					si.append("] ");
 					si.append(name);
 					si.append("\n");

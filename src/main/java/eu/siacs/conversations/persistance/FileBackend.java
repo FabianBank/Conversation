@@ -481,9 +481,9 @@ public class FileBackend {
 	public Uri getTakePhotoUri() {
 		File file;
 		if (Config.ONLY_INTERNAL_STORAGE) {
-			file = new File(mXmppConnectionService.getCacheDir().getAbsolutePath(), "Camera/IMG_" + this.IMAGE_DATE_FORMAT.format(new Date()) + ".jpg");
+			file = new File(mXmppConnectionService.getCacheDir().getAbsolutePath(), "Camera/IMG_" + IMAGE_DATE_FORMAT.format(new Date()) + ".jpg");
 		} else {
-			file = new File(getTakePhotoPath() + "IMG_" + this.IMAGE_DATE_FORMAT.format(new Date()) + ".jpg");
+			file = new File(getTakePhotoPath() + "IMG_" + IMAGE_DATE_FORMAT.format(new Date()) + ".jpg");
 		}
 		file.getParentFile().mkdirs();
 		return getUriForFile(mXmppConnectionService,file);

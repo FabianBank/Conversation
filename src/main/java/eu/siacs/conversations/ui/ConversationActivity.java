@@ -1013,8 +1013,7 @@ public class ConversationActivity extends XmppActivity
 		} else if (modifier && key == downKey) {
 			if (isConversationsOverviewHideable() && !isConversationsOverviewVisable()) {
 				showConversationsOverview();
-				;
-			}
+            }
 			return selectDownConversation();
 		} else if (modifier && key == upKey) {
 			if (isConversationsOverviewHideable() && !isConversationsOverviewVisable()) {
