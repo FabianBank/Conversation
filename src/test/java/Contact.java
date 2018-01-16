@@ -17,9 +17,6 @@ public class Contact {
 
     private static String firstName = "Fabian";
     private static String lastName = "Bank";
-
-
-
     @Test
     public void messageBodyTest() throws InvalidJidException {
         Message message;
@@ -29,14 +26,12 @@ public class Contact {
         assertEquals(message.getBody(), "Hello world!" );
     }
 
-
     @Test
     public void addContact(){
 
         Contact contact = new Contact();
         assertEquals(contact.getClass().getName(), "Contact");
     }
-
 
     @Test
     public void startGroupConversation() throws InvalidJidException {
@@ -45,8 +40,6 @@ public class Contact {
 
         assertEquals(conversation.getName(), "test");
     }
-
-
     @Test
     public void addContactToConversation() throws InvalidJidException {
         Conversation conversation = new Conversation("test", "test", "test",
@@ -56,6 +49,4 @@ public class Contact {
         contact.addContact();
         assertEquals(conversation.getContact(), "Contact");
     }
-
-
 }

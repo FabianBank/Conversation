@@ -53,6 +53,7 @@ Feature:  Adding new contact
     When I type and select a person’s name
     Then the contact should be added to my friends list.
 
+
 Feature: Sending encrypted text:
   Text should not be send if external encryption application is not present
   Text should not be send until text is encrypted by external application.
